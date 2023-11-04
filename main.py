@@ -49,11 +49,22 @@ while running:
     left_paddle.control()
     right_paddle.control()
 
-    ball.xcor += ball.xvel
-    ball.ycor += ball.yvel
-
     left_paddle.ycor += left_paddle.vel
     right_paddle.ycor += right_paddle.vel
+
+    # Collision Detection
+    if left_paddle.xcor <= ball.xcor <= left_paddle.xcor + PADDLE_WIDTH:
+        if left_paddle.ycor <= ball.ycor <= left_paddle.ycor + PADDLE_HEIGHT:
+            ball.xcor = left_paddle.xcor + PADDLE_WIDTH
+            ball.xvel *= -1
+
+    if right_paddle.xcor <= ball.xcor <= right_paddle.xcor + PADDLE_WIDTH:
+        if right_paddle.ycor <= ball.ycor <= right_paddle.ycor + PADDLE_HEIGHT:
+            ball.xcor = right_paddle.xcor
+            ball.xvel *= -1
+
+    ball.xcor += ball.xvel
+    ball.ycor += ball.yvel
 
     ball.update()
     left_paddle.update()
