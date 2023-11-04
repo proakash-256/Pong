@@ -30,6 +30,30 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                right_paddle.vel = -0.9
+            if event.key == pygame.K_DOWN:
+                right_paddle.vel = 0.9
+
+            if event.key == pygame.K_w:
+                left_paddle.vel = -0.9
+            if event.key == pygame.K_s:
+                left_paddle.vel = 0.9
+
+        if event.type == pygame.KEYUP:
+            left_paddle.vel = 0
+            right_paddle.vel = 0
+
+    ball.bounce_control()
+    left_paddle.control()
+    right_paddle.control()
+
+    ball.xcor += ball.xvel
+    ball.ycor += ball.yvel
+
+    left_paddle.ycor += left_paddle.vel
+    right_paddle.ycor += right_paddle.vel
 
     ball.update()
     left_paddle.update()
